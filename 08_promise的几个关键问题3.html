@@ -24,21 +24,6 @@
 							③如果返回的是一个Promise实例, 则新Promise实例的状态和结果与返回的那个Promise实例一致
     */
 
-    let p1 =  new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-        reject(100)
-      },1000)
-    })
-
-    p1.then(
-      (value)=>{console.log('p1成功了',value);return 1},
-      (reason)=>{console.log('p1失败了',reason)}
-    ).then(
-      (value)=>{console.log('x成功了',value)},
-      (reason)=>{console.log('x失败了',reason)}
-    )
-
-
 
   </script>
 </body>

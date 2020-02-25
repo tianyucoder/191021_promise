@@ -7,6 +7,7 @@
   <title>08_promise的几个关键问题4</title>
 </head>
 <body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script>
     /* 
     5.promise如何串连多个操作任务?
@@ -14,44 +15,6 @@
       (2)通过then的链式调用串连多个同步/异步任务
     */
 
-    let p1 = new Promise((resolve,reject)=>{
-      console.log('开启异步任务1')
-      setTimeout(()=>{
-        reject('err')
-      },1000)
-    })
-
-    p1.then(
-      (value)=>{console.log('异步任务1成功了，成功的数据是',value);return value},
-      (reason)=>{},
-    )
-    .then(
-      (value)=>{
-        console.log('开启了异步任务2，携带数据为：',value)
-        return new Promise((resolve,reject)=>{
-          setTimeout(()=>{
-            resolve('数据2')
-          },1000)
-        })
-      },
-      (reason)=>{}
-    )
-    .then(
-      (value)=>{
-        console.log('异步任务2成功了，成功的数据是',value)
-        console.log('开启了异步任务3，携带数据为：',value)
-        return new Promise((resolve,reject)=>{
-          setTimeout(()=>{
-            resolve('数据3')
-          },1000)
-        })
-      },
-      (reason)=>{}
-    )
-    .then(
-      (value)=>{console.log('最后任务3结束了，带回来的数据是',value)},
-      ()=>{}
-    )
 
   </script>
 </body>
