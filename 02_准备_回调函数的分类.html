@@ -17,6 +17,34 @@
           例子: 定时器回调 / ajax回调 / Promise的成功、失败的回调
     */
 
+    //数组遍历相关的回调函数都是同步的回调
+    /*let arr = [1,3,5,7,9]
+    arr.forEach((item)=>{
+      console.log('forEach指定的回调函数执行了',item)
+    })
+    console.log('我是主线程上的一个输出')*/
+
+    //定时器回调
+    /*setTimeout(()=>{
+      console.log('定时指定的回调执行了')
+    })
+    console.log('我是主线程的代码')*/
+
+    //ajax回调
+    /*let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = ()=>{
+      console.log('onreadystatechange所指定的回调执行了')
+    }
+    xhr.open('get','https://api.apiopen.top/musicRankings')
+    xhr.send()
+    console.log('主线程的代码')*/
+
+    btn.onclick = ()=>{
+      console.log(1)
+    }
+
+    console.log(2)
+
 
   </script>
 </body>

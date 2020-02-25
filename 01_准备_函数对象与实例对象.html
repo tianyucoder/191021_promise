@@ -12,8 +12,17 @@
     /* 
     函数对象与实例对象
       1.函数对象: 将函数作为对象使用时, 简称为函数对象
-      2.实例对象: new 函数产生的对象, 简称为对象
+      2.实例对象: new 构造函数或类产生的对象, 我们称之为实例对象，简称对象。
     */
+    
+    function Person(name,age) {
+      this.name = name
+      this.age = age
+    }
+
+
+    let p1 = new Person('laoliu',19)
+    console.log(p1)
 
   </script>
 </body>
