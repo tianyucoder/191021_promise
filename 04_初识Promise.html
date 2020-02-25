@@ -17,6 +17,32 @@
   -->
 <script type="text/javascript">
 
+  //1.Promise不是回调函数，它是一个内置的构造函数，由程序员去调用的。
+  //2.new Promise的时候，需要传入一个回调函数，该回调函数又称为excutor函数，他是同步的回调。
+  //3.excutor函数被调用的时候，会接收到两个参数：resolve、reject，它们都是函数。
+  const p1 = new Promise((resolve,reject)=> {
+    /*
+    *   关于p1：
+    *     1.每一个Promise实例自身都有三种状态：初始化(pending)、成功(resolved)、失败(rejected)。
+    *     2.Promise实例在诞生的那一刻，状态是初始化(pending)
+    *     3.调用resolve函数，让Promise实例状态变为成功(resolved)
+    *     4.调用reject函数，让Promise实例状态变为失败(rejected)
+    * */
+    //在excutor函数中，开启异步任务(定时器、Ajax等)
+    setTimeout(function() {
+      reject(); //调用resolve函数,让p1内部的状态变为成功(resolved)，从而触发了成功的回调。
+    },1000);
+  });
+
+  //1.p1是Promise的实例对象，p1调用了Promise原型对象上的then方法。
+  //2.then方法不是回调函数
+  //3.调用then方法的时候，传入了2个回调函数，第一个是成功的回调，第二个是失败的回调，它们都是异步的回调。
+  p1.then(
+       value => {console.log('then所指定的成功的回调函数执行了')},//成功的回调函数，Promise实例成功的时候掉用
+       reason => {console.log('then所指定的失败回调函数执行了')},//失败的回调函数，Promise实例失败的时候掉用
+    );
+
+  //console.log('主线程');
 
 </script>
 </body>
