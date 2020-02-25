@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08_promise的几个关键问题5</title>
+</head>
+<body>
+  <script>
+    /* 
+    6.promise错误穿透?
+      (1)当使用promise的then链式调用时, 可以在最后指定失败的回调, 
+      (2)前面任何操作出了错误, 都会传到最后失败的回调中处理
+    7.中断promise链?
+      (1)当使用promise的then链式调用时, 在中间中断, 不再调用后面的回调函数
+      (2)办法: 在回调函数中返回一个pendding状态的promise对象
+    */
+		new Promise((resolve,reject)=>{
+			console.log('启动了异步任务1');
+			setTimeout(()=>{
+				reject('数据1')
+			},1000)
+		})
+		.then(
+			value => {
+				console.log('异步任务1成功了，带回来的数据是:',value);
+				return value
+			},
+			reason => {throw reason}
+		)
+		.then(
+			value => {
+				console.log('启动异步任务2，携带数据为：',value);
+				return new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						resolve('数据2')
+					},1000)
+				})
+			},
+			//reason => {throw reason}
+		)
+		.then(
+			value => {
+				console.log('异步任务2成功了，带回来的数据是:',value);
+			},
+			//reason => {throw reason}
+		)
+		.catch(
+			reason => {
+				console.log(reason)
+				return new Promise(()=>{}) //中断Promise链
+			}
+		)
+		.then(
+			value => console.log(value) //没有机会执行了，因为Promise链中断了
+		)
+
+  </script>
+</body>
+</html>

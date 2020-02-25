@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08_promise的几个关键问题5</title>
+</head>
+<body>
+  <script>
+   
+		let p1 = new Promise((resolve,reject)=>{
+			setTimeout(()=>{
+				resolve(1)
+			},1000)
+		})
+
+		p1.then(
+			value => {
+				console.log('成功1',value)
+				return 900
+			},
+			//reason => {throw reason} //then如果不指定失败的回调，相当与写了该行代码
+		).catch(
+			//value => {return value}, //程序员不需要写改行代码，由底层自动加上,写了也是无效代码
+			reason => console.log('失败2',reason)
+		).then(
+			value => console.log('成功3',value)
+		)
+
+  </script>
+</body>
+</html>

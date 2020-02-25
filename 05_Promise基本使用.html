@@ -8,11 +8,11 @@
 <body>
   <!-- 
   1. 重要语法
-      new Promise(excutor)构造函数
+      new Promise(executor)构造函数
       Promise.prototype.then方法
   2. 基本编码流程
-      (1) 创建Promise的实例对象(pending状态), 指定执行器函数
-      (2) 在执行器函数中启动异步任务（定时器，更多的写：ajax请求）
+      (1) 创建Promise的实例对象(pending状态), 指定executor
+      (2) 在executor中启动异步任务（定时器，更多的写：ajax请求）
       (3) 根据结果做不同处理
             (3.1).如果你开启的异步任务成功了, 你去调用resolve(), 给Promise实例指定成功的value, 且改变内部状态为：resolved
             (3.2).如果你开启的异步任务失败了, 你去调用reject(), 给Promise实例指定失败的reason, 且改变内部状态为：rejected
@@ -29,6 +29,27 @@
 	-->
 	
 	<script type="text/javascript" >
+
+    /*
+    * 案例：延迟2秒获取时间戳，若为奇数可以工作，若为偶数不可以工作
+    * */
+
+    let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        let now = Date.now()
+        if(now % 2 === 1){
+          resolve('奇数可以工作')
+        }else{
+          reject('偶数不可以工作')
+        }
+      },1000)
+    })
+
+    p1.then(
+      value => {console.log('p1成功了',value)},
+      reason => {console.log('p1失败了',reason)},
+    )
+
 
 
 	</script>

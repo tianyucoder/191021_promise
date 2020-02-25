@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07_Promise的API</title>
+</head>
+<body>
+  <!-- 
+    1. Promise构造函数: new Promise (excutor) {}
+         excutor函数: 同步执行(resolve, reject) => {}
+         resolve函数: 调用resolve将Promise实例内部状态改为成功。
+         reject函数: 调用resolve将Promise实例内部状态改为成功。
+         说明: excutor函数会在Promise内部立即同步调用,异步操作写在执行器中。
+
+    2. Promise.prototype.then方法: Promise实例.then(onResolved, onRejected)
+         onResolved: 成功的回调函数 (value) => {}
+         onRejected: 失败的回调函数 (reason) => {}
+         特别注意(难点)：then方法会返回一个新的Promise实例对象
+
+    3. Promise.prototype.catch方法: Promise实例.catch(onRejected)
+          onRejected: 失败的回调函数 (reason) => {}
+          说明: catch方法是then方法的语法糖, 相当于: then(undefined, onRejected)
+
+    4. Promise.resolve方法: Promisw.resolve(value)
+          value可以为：1.成功的数据。2.一个新的Promise实例。
+          说明: 返回一个状态为成功或失败的Promise实例对象
+
+    5. Promise.reject方法: Promisw.reject方法(reason)
+          reason为失败的原因
+          说明: 返回一个失败的Promise实例对象
+
+    6. Promise.all方法: Promisw.all(promiseArr)
+          promiseArr: 包含n个Promise实例的数组
+          说明: 返回一个新的Promise实例, 只有所有的promise都成功才成功, 只要有一个失败了就直接失败
+				
+    7. Promise.race方法: Promisw.race(promiseArr)
+          promises: 包含n个Promise实例的数组
+          说明: 返回一个新的Promise实例,第一个完成的promise的结果状态就是最终的结果状态
+	-->
+	<script type="text/javascript" >
+
+    //Promise.prototype.catch方法
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('因为xxx失败了')
+      },1000)
+    })
+
+    p1.catch((reason)=>{console.log(reason)})*/
+
+    //Promise.resolve方法
+    /*let p0 = Promise.reject(900)
+    let p1 = Promise.resolve(p0)
+    p1.then(
+      value=>{console.log('成功的回调--onResolved',value)},
+      reason=>{console.log('失败的回调--onRejectd',reason)}
+    )*/
+
+    //Promise.reject方法
+    /*let p1 = Promise.reject('失败的原因')
+    p1.then(
+      value => {console.log('成功',value)},
+      reason => {console.log('失败',reason)}
+    )*/
+
+    //Promise.all方法
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('我是p1成功的原因')
+      },1000)
+    })
+    let p2 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('我是p2成功的原因')
+      },2000)
+    })
+    let p3 = Promise.reject(300)
+
+    let final = Promise.all([p1,p2,p3])
+    final.then(
+      value => {console.log('final最终是成功的，成功的value是',value)},
+      reason => {console.log('final最终是失败的，失败的reason是',reason)}
+    )*/
+
+    //Promise.race方法
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('我是p1成功的原因')
+      },1000)
+    })
+    let p2 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('我是p2成功的原因')
+      },2000)
+    })
+    let p3 = Promise.resolve(300)
+
+    let final = Promise.race([p1,p2])
+    final.then(
+      value => {console.log('final最终是成功的，成功的value是',value)},
+      reason => {console.log('final最终是失败的，失败的reason是',reason)}
+    )*/
+
+	</script>
+</body>
+</html>
