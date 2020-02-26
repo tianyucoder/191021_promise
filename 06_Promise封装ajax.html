@@ -21,15 +21,41 @@
       let xhr = new XMLHttpRequest()
       //绑定监听
       xhr.onreadystatechange = ()=>{
-        if(xhr.readyState === 4 && xhr.status === 200){
-          console.log(xhr.response)
+        if(xhr.readyState !== 4) return
+        if(xhr.status === 200){
+          resolve(xhr.response)
+        }else{
+          reject('请求失败了')
         }
       }
-      if()// get? post?
-      xhr.open()
-      xhr.send()
+      //整理参数
+      let str = ''
+      for (let key in data){
+        str += `${key}=${data[key]}&`
+      }
+      if(str) str = str.slice(0,-1)
+      if(method.toUpperCase() === 'GET'){
+        xhr.open(method,url+'?'+str)
+        xhr.send()
+      }else{
+        xhr.open(method,url)
+        xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        xhr.send(str)
+      }
+
     })
   }
+
+  let p1 = sendAjax({
+    url:'http://localhost:3000/demo2',
+    method:'post',
+    data:{name:'laoliu'}
+  })
+
+  p1.then(
+    (value)=>{console.log('请求成功了',value)},
+    (reason)=>{console.log('请求失败了',reason)}
+  )
 
 </script>
 </body>

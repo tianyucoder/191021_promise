@@ -8,10 +8,10 @@
 </head>
 <body>
   <!-- 
-    1. Promise构造函数: new Promise (excutor) {}
-         excutor函数: 同步执行(resolve, reject) => {}
-         resolve函数: 调用resolve将Promise实例内部状态改为成功。
-         reject函数: 调用resolve将Promise实例内部状态改为成功。
+    1. Promise构造函数: new Promise (executor) {}
+         executor函数: 同步执行(resolve, reject) => {}
+         resolve函数: 调用resolve将Promise实例内部状态改为成功(resolved)。
+         reject函数: 调用reject将Promise实例内部状态改为失败(rejected)。
          说明: excutor函数会在Promise内部立即同步调用,异步操作写在执行器中。
 
     2. Promise.prototype.then方法: Promise实例.then(onResolved, onRejected)
@@ -40,6 +40,35 @@
           说明: 返回一个新的Promise实例,第一个完成的promise的结果状态就是最终的结果状态
 	-->
 	<script type="text/javascript" >
+
+    //1.观察then的返回值(不探讨具体返回Promise实例状态和数据的规则)
+    /*let p1 = new Promise((resolve,reject)=>{
+      resolve('成功的数据')
+    })
+
+    let x = p1.then(
+      (value)=>{console.log('p1成功了',value)},
+      (reason)=>{console.log('p1失败了',reason)}
+    )
+    console.log(x)*/
+
+    //catch的使用
+    //Promise实例如果指定了多组成功与失败的回调，都会调用吗----会
+    let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('失败：xxx')
+      },1000)
+    })
+
+    p1.catch(
+      (reason)=>{console.log('p1失败了',reason)}, //失败的回调
+    )
+
+
+
+
+
+
 
 
 	</script>
