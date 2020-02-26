@@ -6,29 +6,30 @@
   <title>06_Promise基本使用1</title>
 </head>
 <body>
-	<button id="btn">点我获取经典语句</button>
-  <!-- 
-  1. 重要语法
-      new Promise(excutor)构造函数
-      Promise.prototype.then方法
-  2. 基本编码流程
-      (1) 创建Promise的实例对象(pending状态), 指定执行器函数
-      (2) 在执行器函数中启动异步任务（定时器，更多的写：ajax请求）
-      (3) 根据结果做不同处理
-            (3.1).如果你开启的异步任务成功了, 你去调用resolve(), 给Promise实例指定成功的value, 且改变内部状态为：resolved
-            (3.2).如果你开启的异步任务失败了, 你去调用reject(), 给Promise实例指定失败的reason, 且改变内部状态为：rejected
-      (4) 为promise指定成功或失败的回调函数来获取成功的vlaue或失败的reason
-  3. promise对象的状态
-      (1) 三个状态:
-              pending: 未确定的, 起始时的状态，初始状态
-              resolved: 解决/成功的, 调用resolve()后的状态
-              rejected: 拒绝/失败的, 调用reject()后的状态
-      (2). 两种状态改变
-              pending ==> resolved
-              pending ==> rejected
-      (3). 状态只能改变一次！！
-  -->
 <script type="text/javascript">
+
+  /*
+  * 定义一个sendAjax函数：
+  *     1.该函数接收一个配置对象，形如：{url:xxx,method:xxx,data:{携带的数据}}
+  *     2.该函数返回一个Promise实例，若ajax请求成功则Promise实例成功，若ajax请求失败则Promise实例失败。
+  *     3.封装的是xhr
+  * */
+  function sendAjax(config) {
+    const {url,method='get',data} = config
+    return new Promise((resolve,reject)=>{
+      //实例化xhr
+      let xhr = new XMLHttpRequest()
+      //绑定监听
+      xhr.onreadystatechange = ()=>{
+        if(xhr.readyState === 4 && xhr.status === 200){
+          console.log(xhr.response)
+        }
+      }
+      if()// get? post?
+      xhr.open()
+      xhr.send()
+    })
+  }
 
 </script>
 </body>
