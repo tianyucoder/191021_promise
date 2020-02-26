@@ -11,12 +11,45 @@
     1.	如何改变一个Promise实例的状态?
           (1)执行resolve(value): 如果当前是pending就会变为resolved
           (2)执行reject(reason): 如果当前是pending就会变为rejected
-          (3)执行器函数(excutor)抛出异常: 如果当前是pending就会变为rejected
+          (3)执行器函数(executor)抛出异常: 如果当前是pending就会变为rejected
 
-    2.	一个promise指定多个成功/失败回调函数, 都会调用吗?
+    2.	一个promise指定多个成功/失败回调函数, 都会调用吗? ----- 会
 	-->
 	
 	<script type="text/javascript" >
+
+    //1.executor抛出异常也会导致状态变为rejected
+    /*let p1 = new Promise((resolve,reject)=>{
+      //console.log(a) //js引擎抛异常
+      //throw 900 //程序员抛异常
+      resolve(100)
+      throw 300 //这个异常抛出是无效的
+    })
+
+    p1.then(
+      (value)=>{console.log('成功',value)},
+      (reason)=>{console.log('失败',reason)}
+    )*/
+
+    //2.一个promise指定多组成功/失败回调函数, 都会调用吗? ----- 会
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('atguigu')
+      },1000)
+    })
+
+    p1.then(
+      (value)=>{console.log('成功1',value)},
+      (reason)=>{console.log('失败1',reason)}
+    )
+    p1.then(
+      (value)=>{console.log('成功2',value)},
+      (reason)=>{console.log('失败2',reason)}
+    )
+    p1.then(
+      (value)=>{console.log('成功3',value)},
+      (reason)=>{console.log('失败3',reason)}
+    )*/
 
 	</script>
 </body>

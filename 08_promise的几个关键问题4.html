@@ -10,10 +10,58 @@
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script>
     /* 
-    5.promise如何串连多个操作任务?
-      (1)promise的then()返回一个新的promise, 可以看成then()的链式调用
-      (2)通过then的链式调用串连多个同步/异步任务
+    5.promise如何串连多个异步任务?
+       通过then的链式调用串连多个异步任务
     */
+
+    let p1 = new Promise((resolve,reject)=>{
+      console.log('开始了第1次请求')
+      $.get('https://api.apiopen.top/videoCategory',(data)=>{
+        resolve(data)
+      })
+    })
+    p1.then(
+      value => {
+        console.log('第1次请求成功了，数据:',value)
+        return new Promise((resolve,reject)=>{
+          console.log('开始了第2次请求')
+          $.get('https://api.apiopen.top/todayVideo',(data)=>{
+            resolve(data)
+          })
+        })
+      },
+      reason => {console.log(reason)}
+    )
+    .then(
+      value => {
+        console.log('第2次请求成功了，数据:',value)
+        return new Promise((resolve,reject)=>{
+          console.log('开始了第3次请求')
+          $.get('https://api.apiopen.top/videoCategory',(data)=>{
+            resolve(data)
+          })
+        })
+      },
+      reason => {console.log(reason)},
+    )
+    .then(
+      value => {
+        console.log('第3次请求成功了，数据:',value)
+      },
+      reason => {console.log(reason)},
+    )
+
+
+    //回调地狱的写法
+    /*$.get('https://api.apiopen.top/musicRankings',(data)=>{
+      console.log(data)
+      $.get('https://api.apiopen.top/todayVideo',(data)=>{
+        console.log(data)
+        $.get('https://api.apiopen.top/videoCategory',(data)=>{
+          console.log(data)
+        })
+      })
+    })*/
 
 
   </script>

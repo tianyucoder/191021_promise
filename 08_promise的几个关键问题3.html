@@ -9,20 +9,62 @@
 <body>
   <script>
     /* 
-    4.	promise.then()返回的是一个新的Promise实例，它的结果和状态由什么决定?
+    4.	Promise实例.then()返回的是一个新的Promise实例，它的值和状态由什么决定?
 					(1)简单表达: 由then()所指定的回调函数执行的结果决定
 					(2)详细表达:
-							①如果抛出异常, 新Promise实例状态为rejected, reason为抛出的异常
-							②如果返回的是非Promise的任意值, 新Promise实例状态为resolved, value为返回的值
-							③如果返回的是一个Promise实例, 则新Promise实例的状态和结果与返回的那个Promise实例一致
-				
+							①如果then所指定的回调抛出异常, 新Promise实例状态为rejected, reason为抛出的异常
+							②如果then所指定的回调返回的是非Promise的任意值, 新Promise实例状态为resolved, value为返回的值
+							③如果then所指定的回调返回的是一个Promise实例,
+							  则then函数所返回的那个Promise实例的状态、值 与 then所指定的回调返回的那个Promise实例一致
+
 				promise.catch()返回的也是新的Promise实例，它的结果和状态由什么决定?
 					(1)简单表达: 由catch()所指定的失败的回调函数执行的结果决定
 					(2)详细表达:
-							①如果抛出异常, 新Promise实例状态为rejected, reason为抛出的异常
-							②如果返回的是非Promise的任意值, 新Promise实例状态为resolved, value为返回的值
-							③如果返回的是一个Promise实例, 则新Promise实例的状态和结果与返回的那个Promise实例一致
+							①如果then所指定的回调抛出异常, 新Promise实例状态为rejected, reason为抛出的异常
+							②如果then所指定的回调返回的是非Promise的任意值, 新Promise实例状态为resolved, value为返回的值
+							③如果then所指定的回调返回的是一个Promise实例,
+							  则then函数所返回的那个Promise实例的状态、值 与 then所指定的回调返回的那个Promise实例一致
+
     */
+
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('atguigu')
+      },1000)
+    })
+
+    p1.then(
+      (value)=>{
+        console.log('p1成功',value)
+        return Promise.reject('laoliu')
+      },
+      (reason)=>{console.log('p1失败',reason)}
+    ).then(
+      (value)=>{console.log('x成功',value)},
+      (reason)=>{console.log('x失败',reason)}
+    )*/
+
+    let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve(1)
+      },1000)
+    })
+
+    p1.then(
+      (value)=>{
+        console.log(value)
+        return Promise.reject(2)
+      },
+      (reason)=>{console.log(reason)}
+    )
+    .then(
+      (value)=>{console.log(value);return 3},
+      (reason)=>{console.log(reason);return 4}
+    )
+    .then(
+      (value)=>{console.log(value)},
+      (reason)=>{console.log(reason)}
+    )
 
 
   </script>
