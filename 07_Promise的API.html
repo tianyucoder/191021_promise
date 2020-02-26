@@ -25,9 +25,9 @@
 
     4. Promise.resolve方法: Promisw.resolve(value)
           value可以为：1.成功的数据。2.一个新的Promise实例。
-          说明: 返回一个状态为成功或失败的Promise实例对象
+          说明: 用于快速返回一个状态为resolved或rejected的Promise实例对象
 
-    5. Promise.reject方法: Promisw.reject方法(reason)
+    5. Promise.reject方法: Promise.reject方法(reason)
           reason为失败的原因
           说明: 返回一个失败的Promise实例对象
 
@@ -52,18 +52,41 @@
     )
     console.log(x)*/
 
-    //catch的使用
-    //Promise实例如果指定了多组成功与失败的回调，都会调用吗----会
-    let p1 = new Promise((resolve,reject)=>{
+    //2.catch的使用
+    //扩展：Promise实例如果指定了多组成功与失败的回调，都会调用吗----会
+    /*let p1 = new Promise((resolve,reject)=>{
       setTimeout(()=>{
         reject('失败：xxx')
       },1000)
     })
 
     p1.catch(
-      (reason)=>{console.log('p1失败了',reason)}, //失败的回调
-    )
+      (reason)=>{console.log('失败2',reason)}
+    )*/
 
+    //3.Promise.resolve方法:用于快速返回一个Promise实例，状态可能成功，也可能失败
+    //完整写法如下：
+    /*let p1 = new Promise((resolve,reject)=>{
+      resolve(900)
+    })
+    console.log(p1)*/
+    //精简版写法如下：
+    //let p1 = Promise.resolve(p0)
+
+    //注意一个特殊的情况
+    /*let p0 = new Promise((resolve,reject)=>{
+      reject(800)
+    })
+    let p1 = Promise.resolve(p0)
+
+    console.log(p1)*/
+
+    //4.Promise.reject方法:用于快速返回一个Promise实例，状态必为失败。
+    /*let p1 = new Promise((resolve,reject)=>{
+      resolve(300)
+    })
+    let p2 = Promise.reject(p1)
+    console.log(p2)*/
 
 
 
