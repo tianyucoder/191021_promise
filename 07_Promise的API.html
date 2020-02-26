@@ -31,13 +31,13 @@
           reason为失败的原因
           说明: 返回一个失败的Promise实例对象
 
-    6. Promise.all方法: Promisw.all(promiseArr)
+    6. Promise.all方法: Promise.all(promiseArr)
           promiseArr: 包含n个Promise实例的数组
           说明: 返回一个新的Promise实例, 只有所有的promise都成功才成功, 只要有一个失败了就直接失败
 				
-    7. Promise.race方法: Promisw.race(promiseArr)
-          promises: 包含n个Promise实例的数组
-          说明: 返回一个新的Promise实例,第一个完成的promise的结果状态就是最终的结果状态
+    7. Promise.race方法: Promise.race(promiseArr)
+          promiseArr: 包含n个Promise实例的数组
+          说明: 返回一个新的Promise实例,最先出结果的promise的结果状态就是最终的结果状态
 	-->
 	<script type="text/javascript" >
 
@@ -88,10 +88,48 @@
     let p2 = Promise.reject(p1)
     console.log(p2)*/
 
+    //5.Promise.all方法
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('offer--1')
+      },1000)
+    })
+    let p2 = Promise.resolve('1021')
+    let p3 = Promise.resolve('atguigu')
+    let p4 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('offer---4')
+      },4000)
+    })
 
 
+    let x = Promise.all([p4,p1,p2,p3])
 
+    x.then(
+      (value)=>{console.log('成功',value)},
+      (reason)=>{console.log('失败',reason)}
+    )*/
 
+    //6.Promise.race
+    /*let p1 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('offer--1')
+      },1000)
+    })
+    let p2 = Promise.reject('1021')
+    let p3 = Promise.resolve('atguigu')
+    let p4 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject('offer---4')
+      },4000)
+    })
+
+    let x = Promise.race([p1,p2,p3,p4])
+
+    x.then(
+      (value)=>{console.log('成功',value)},
+      (reason)=>{console.log('失败',reason)}
+    )*/
 
 
 	</script>

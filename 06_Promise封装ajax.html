@@ -49,13 +49,14 @@
   let p1 = sendAjax({
     url:'http://localhost:3000/demo2',
     method:'post',
-    data:{name:'laoliu'}
+    data:{name:'laoliu'},
   })
 
   p1.then(
     (value)=>{console.log('请求成功了',value)},
     (reason)=>{console.log('请求失败了',reason)}
   )
+
 
 </script>
 </body>
