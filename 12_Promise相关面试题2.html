@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>12_Promise相关面试题2</title>
+</head>
+<body>
+
+    <script>
+			/* 
+				宏：[1]
+				微：[]
+				控制台输出：2 5 3 4 1
+			*/
+      setTimeout(() => {
+        console.log(1)
+      }, 0)
+      new Promise((resolve) => {
+        console.log(2)
+        resolve()
+      }).then(() => {
+        console.log(3)
+      }).then(() => {
+        console.log(4)
+      })
+      console.log(5)
+    </script>
+</body>
+</html>

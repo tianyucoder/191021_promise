@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>09_自定义Promise</title>
+</head>
+<body>
+<script type="text/javascript" src="./js/promise.js"></script>
+<script type="text/javascript" >
+
+  let p1 = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      resolve('atguigu')
+    },1000)
+  })
+
+  p1.then(
+    (value)=>{console.log('成功1',value);return 900},
+  ).catch(
+    (reason)=>{console.log('失败1',reason)},
+  ).then(
+    (value)=>{console.log('成功2',value)},
+  )
+
+</script>
+</body>
+</html>
