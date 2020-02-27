@@ -16,11 +16,8 @@
   })
 
   p1.then(
-    (value)=>{console.log('成功1',value);return 900},
-  ).catch(
-    (reason)=>{console.log('失败1',reason)},
-  ).then(
-    (value)=>{console.log('成功2',value)},
+    (value)=>{console.log('成功',value)},
+    (reason)=>{console.log('失败',reason)},
   )
 
 </script>
