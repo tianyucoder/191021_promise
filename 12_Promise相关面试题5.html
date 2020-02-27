@@ -9,24 +9,13 @@
   <script>
 		/* 
 			宏：[]
-			微：[,
+			微：[]
 			控制台：
-			script start，
-			async1 start,
-			async2 
-			promise1,
-			script end,
-			async1 end,
-			promise2,
-			setTimeout
 		*/
     async function async1() {
       console.log('async1 start')
-      // await async2()
-			// console.log('async1 end')
-			async2().then(
-				()=>{console.log('async1 end')}
-			)
+      await async2()
+      console.log('async1 end')
     }
 
     async function async2() {

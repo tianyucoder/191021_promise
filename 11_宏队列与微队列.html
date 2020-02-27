@@ -13,11 +13,11 @@
 			宏队列:[宏任务1，宏任务2.....]
 			微队列:[微任务1，微任务2.....]
 			规则：每次要执行宏队列里的一个任务之前，先看微队列里是否有待执行的微任务
-						1.如果有，先执行待执行的微任务
-						2.如果没有，按照宏队列里任务的书序，依次执行
+						1.如果有，先执行微任务
+						2.如果没有，按照宏队列里任务的顺序，依次执行
 		*/
 		//代码一
-    /* setTimeout(()=>{
+     /*setTimeout(()=>{
       console.log('setTimeout callback')
     },0)
 
@@ -27,14 +27,14 @@
     Promise.resolve(2).then(
       value => console.log('onResolved2',value)
     )
-    console.log('主线程') */
+    console.log('主线程')*/
 
 		//代码二
     /* setTimeout(()=>{
-      console.log('setTimeout callback',1)
+      console.log('setTimeout callback1')
     })
     setTimeout(()=>{
-      console.log('setTimeout callback',2)
+      console.log('setTimeout callback2')
     })
 
     Promise.resolve(1).then(
@@ -42,30 +42,30 @@
     )
     Promise.resolve(2).then(
       value => console.log('onResolved2',value)
-    ) */
+    )*/
 
 		//代码三
 		/* 
 			宏队列:[]
 			微队列:[]
-			控制台输出：onResolved3，onResolved4，callback1，onResolved5 ，callback2
+			控制台输出：onResolved3，onResolved4，callback1，onResolved5，callback2
 		*/
-    setTimeout(()=>{
-      console.log('setTimeout callback',1)
+    /*setTimeout(()=>{
+      console.log('setTimeout callback1')
       Promise.resolve(5).then(
-        value => console.log('onResolved5',value)
+        value => console.log('onResolved5')
       )
     })
     setTimeout(()=>{
-      console.log('setTimeout callback',2)
+      console.log('setTimeout callback2')
     })
 
     Promise.resolve(3).then(
-      value => console.log('onResolved3',value)
+      value => console.log('onResolved3')
     )
     Promise.resolve(4).then(
-      value => console.log('onResolved4',value)
-    )
+      value => console.log('onResolved4')
+    )*/
     
   </script>
 </body>

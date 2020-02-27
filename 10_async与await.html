@@ -9,9 +9,6 @@
 <script>
   /* 
   目标: 进一步掌握asyn/await的语法和使用
-    mdn文档:
-      https: //developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function
-      https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/await
     1. async 函数
       函数的返回值为promise对象
       promise对象的结果由async函数执行的返回值决定,或看async函数是否抛出异常
@@ -25,83 +22,6 @@
       await必须写在async函数中, 但async函数中可以没有await
       如果await的promise失败了, 就会抛出异常, 需要通过try...catch来捕获处理
   */
-
-	//正常的函数
-	/* function demo(){
-		return 900
-	}
-	let a = demo()
-	console.log(a); */
-
-	//定义一个async函数
-	/* async function demo(){
-		return 900
-	}
-	let a = demo()
-	a.then(
-		value => console.log('成功的回调',value),
-		reason => console.log('失败的回调',reason)
-	) */
-
-	/* *************************************************************** */
-
-	//返回一个Promsise实例的test1函数
-	function test1 (){
-		return new Promise((resolve,reject)=>{
-			setTimeout(()=>{
-				resolve('成功的数据1')
-			},2000)
-		})
-	}
-	//返回一个Promsise实例的test2函数
-	function test2 (){
-		return new Promise((resolve,reject)=>{
-			setTimeout(()=>{
-				resolve('成功的数据2')
-			},4000)
-		})
-	}
-
-	//demo2函数里通过then去获取demo1调用返回的Promise实例成功的value
-	/* function fun2 (){
-		demo1().then(
-			value => {
-				console.log('发送了一个ajax请求，携带数据为:',value);
-			},
-		).catch(
-			reason => console.log(reason)
-		)
-	} */
-
-	//demo2函数里通过await去获取demo1调用返回的Promise实例成功的value
-	/* 
-		注意：
-			1.使用了await，表面上“消灭了”then和then所指定的回调。
-			2.实际上底层把await的写法，转换成了原始写法(then的写法)
-	*/
-	async function demo3 (){
-	  try {
-			let result1 = await test1()
-			let result2 = await test2()
-			console.log('发送了一个ajax请求，携带数据为:',result1,result2);
-		} catch (error) {
-			console.log(error);
-		}
-
-		/* let result = await demo1()
-		console.log('发送了一个ajax请求，携带数据为:',result); */
-		//以两行代码，在底层转换成了如下形式：
-		/* demo1().then(
-			value => {
-				console.log('发送了一个ajax请求，携带数据为:',value)
-			}
-		) */
-		
-	}
-	demo3()
-	console.log('@');
-
-
 
 </script>
 </body>
