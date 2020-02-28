@@ -9,15 +9,21 @@
 <script type="text/javascript" src="./js/promise.js"></script>
 <script type="text/javascript" >
 
+  //1.先改状态，那么就存储状态、存储value，等then调用的那一刻，立即就去异步执行回调。
+  //1.先指定回调，那么就存储回调，等改变状态的那一刻，取出回调异步执行
+
   let p1 = new Promise((resolve,reject)=>{
     setTimeout(()=>{
-      reject('atguigu')
+      resolve('atguigu')
     },1000)
   })
 
   p1.then(
     (value)=>{console.log('成功',value)},
     (reason)=>{console.log('失败',reason)},
+  )
+  .then(
+    (value)=>{console.log(value)}
   )
 
 
