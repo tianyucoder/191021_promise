@@ -62,6 +62,10 @@
   * */
   Promise.prototype.then = function (onResolved,onRejected) {
     const self = this
+    //下面这行代码，是为了保证Promise的错误穿透功能
+    onRejected = typeof onRejected === 'function' ? onRejected : reason =>{throw reason}
+    //下面这行代码，是为了保证catch的传递功能
+    onResolved = typeof onResolved === 'function' ? onResolved : value => value
     return new Promise((resolve,reject)=>{
       //专门用于执行成功或失败的回调，且能根据回调执行的结果，影响着then返回的那个实例的状态、值
       function handle(target) {
@@ -97,9 +101,17 @@
       }
       //如果调用then时，状态仍为pending，向callbacks中保存回调。
       else{
-        self.callbacks.push({onResolved,onRejected})
+        self.callbacks.push({
+          onResolved:()=>{handle(onResolved)},
+          onRejected:()=>{handle(onRejected)}
+        })
       }
     })
+  }
+
+  //Promise原型对象上的catch
+  Promise.prototype.catch = function (onRejected) {
+    return this.then(undefined,onRejected)
   }
   
 

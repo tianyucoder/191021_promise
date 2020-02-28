@@ -18,13 +18,16 @@
     },1000)
   })
 
-  p1.then(
-    (value)=>{console.log('成功',value)},
-    (reason)=>{console.log('失败',reason)},
-  )
-  .then(
-    (value)=>{console.log(value)}
-  )
+    p1.then(
+      (value)=>{console.log('成功1',value)},
+      //(reason)=>{console.log('失败',reason)},
+    )
+    .catch(
+      (reason)=>{console.log('失败2',reason)},
+    )
+    .then(
+      (value)=>{console.log('成功3',value)},
+    )
 
 
 
