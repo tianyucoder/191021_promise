@@ -11,7 +11,7 @@
 
   let p1 = new Promise((resolve,reject)=>{
     setTimeout(()=>{
-      resolve('atguigu')
+      reject('atguigu')
     },1000)
   })
 
@@ -19,6 +19,8 @@
     (value)=>{console.log('成功',value)},
     (reason)=>{console.log('失败',reason)},
   )
+
+
 
 </script>
 </body>

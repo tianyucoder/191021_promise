@@ -16,13 +16,18 @@
 
     7.中断promise链?
       (1)当使用promise的then链式调用时, 在中间中断, 不再调用后面的回调函数
-      (2)办法: 在最后一个失败的回调函数中返回一个pendding状态的promise对象
+      (2)办法: 在最后一个失败的回调函数中返回一个pendding状态的promise对象,若与任何一个失败，就会中断Promise链。
+
+    备注：
+        1.catch后如果还继续.then，就需要考虑catch的传递功能。
+        2.如果不存在then的链式调用，就不需要考虑then的错误穿透。
+
     */
 
     let p1 = new Promise((resolve,reject)=>{
       console.log('开始了第1次请求')
       $.get('https://api.apiopen.top/videoCategory',(data)=>{
-        reject('某种原因失败了')
+        reject(data)
       })
     })
     p1.then(
@@ -56,10 +61,11 @@
       //reason => {throw reason} //若then没有传递第二个参数，底层帮我们加上了这句话
     )
     .catch(
+      //value => value,
       reason => {console.log(reason);return new Promise(()=>{})}
     )
     .then(
-      (value)=>{console.log(value)}
+      (value)=>{console.log('@@@',value)}
     )
 
 
