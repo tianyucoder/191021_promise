@@ -11,12 +11,53 @@
   <script>
     /* 
     6.promise错误穿透?
-      (1)当使用promise的then链式调用时, 可以在最后指定失败的回调, 
+      (1)当使用promise的then链式调用时, 可以在最后用catch指定一个失败的回调,
       (2)前面任何操作出了错误, 都会传到最后失败的回调中处理
+
     7.中断promise链?
       (1)当使用promise的then链式调用时, 在中间中断, 不再调用后面的回调函数
       (2)办法: 在回调函数中返回一个pendding状态的promise对象
     */
+
+    let p1 = new Promise((resolve,reject)=>{
+      console.log('开始了第1次请求')
+      $.get('https://api.apiopen.top/videoCategory',(data)=>{
+        reject('第1次失败了')
+      })
+    })
+    p1.then(
+      value => {
+        console.log('第1次请求成功了，数据:',value)
+        return new Promise((resolve,reject)=>{
+          console.log('开始了第2次请求')
+          $.get('https://api.apiopen.top/todayVideo',(data)=>{
+            resolve(data)
+          })
+        })
+      },
+      //reason => {throw reason} //若then没有传递第二个参数，底层帮我们加上了这句话
+    )
+    .then(
+      value => {
+        console.log('第2次请求成功了，数据:',value)
+        return new Promise((resolve,reject)=>{
+          console.log('开始了第3次请求')
+          $.get('https://api.apiopen.top/videoCategory',(data)=>{
+            resolve(data)
+          })
+        })
+      },
+      //reason => {throw reason} //若then没有传递第二个参数，底层帮我们加上了这句话
+    )
+    .then(
+      value => {
+        console.log('第3次请求成功了，数据:',value)
+      },
+      //reason => {throw reason} //若then没有传递第二个参数，底层帮我们加上了这句话
+    )
+    .catch(
+      reason => {console.log(reason)}
+    )
 
   </script>
 </body>
