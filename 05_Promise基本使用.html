@@ -45,10 +45,12 @@
       },1000)
     })
 
-    p1.then(
-      value => {console.log('p1成功了',value)},
-      reason => {console.log('p1失败了',reason)},
-    )
+    setTimeout(()=>{
+      p1.then(
+        value => {console.log('p1成功了',value)},
+        reason => {console.log('p1失败了',reason)},
+      )
+    },900000)
 
 
 
