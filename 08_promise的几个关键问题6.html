@@ -12,6 +12,20 @@
    * 特别要注意：如果没有走catch所指定的onRejected，catch也会有一个“传递”的功能
    * */
 
+   let p1 = new Promise((resolve,reject)=>{
+     setTimeout(()=>{
+       resolve('一些失败的数据')
+     },1000)
+   })
+
+  p1.then(
+    (value)=>{console.log('p1成功了1',value)},
+  ).catch(
+    (reason)=>{console.log('p1失败了2',reason);return new Promise(()=>{})}
+  ).then(
+    (value)=>{console.log('p1成功了3',value)},
+  )
+
   </script>
 </body>
 </html>
