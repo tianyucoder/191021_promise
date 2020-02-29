@@ -10,9 +10,9 @@
 			/* 
 				宏:[]
 				微:[]
-				控制台:
+				控制台:3 7 4 1 2 5
 			*/
-      const first = () => (new Promise((resolve, reject) => {
+      const first = () => {return new Promise((resolve, reject) => {
         console.log(3)
         let p = new Promise((resolve, reject) => {
           console.log(7)
@@ -20,19 +20,20 @@
             console.log(5)
             resolve(6)
           },0)
-          resolve(1)
+          resolve(1) // p ====> 成功，1
         })
-        resolve(2)
+        resolve(2) //first() =====> 成功，2
         p.then(
           (arg)=>{console.log(arg)}
         )
-      }))
-    
-      first().then((arg) => {
-        console.log(arg)
-      })
+      })}
+
+      first().then(
+          (arg) => {console.log(arg)}
+        )
 		  console.log(4)
-		
+
+
     </script>
 </body>
 </html>

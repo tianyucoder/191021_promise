@@ -9,14 +9,18 @@
 		/* 
 			宏：[]
 			微: []
-			控制台输出：
+			控制台输出：3 2 5 4 1 6
 		*/
     setTimeout(()=>{
-      console.log(1)
-    },0)
+      console.log(1)
+      console.log(6)
+    },0)
 
     Promise.resolve().then(
-      ()=>{console.log(2)}
+      ()=>{
+        console.log(2)
+        console.log(5)
+      }
     )
 
     Promise.resolve().then(

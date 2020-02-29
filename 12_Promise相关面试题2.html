@@ -10,7 +10,7 @@
 			/* 
 				宏：[]
 				微：[]
-				控制台输出:
+				控制台输出:2 5 3 4 1
 			*/
       setTimeout(() => {
         console.log(1)
@@ -18,11 +18,12 @@
       new Promise((resolve) => {
         console.log(2)
         resolve()
-      }).then(() => {
-        console.log(3)
-      }).then(() => {
-        console.log(4)
-      })
+      }).then(
+          () => {console.log(3)}
+        )
+        .then(
+          () => { console.log(4)}
+        )
       console.log(5)
     </script>
 </body>
