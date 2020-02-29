@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" >
+
+	class Person{
+	  /*
+	  * 类里写什么代码？
+	  * 	1.构造器
+	  *   2.直接写方法名(){} ----- 放在原型上的
+	  *   3.static方法名(){} ------ 类自身的
+	  *   4.赋值语句，形如： a = b 含义：在实例自身上追加一个属性，名为a，值为b
+	  * */
+    constructor(name,age,sex){
+      //用于接到new时候传递的参数，往实例本身上方东西
+      this.name = name
+      this.age = age
+      this.sex = sex
+    }
+    //定义一个speak方法，放在了Person的原型上
+		speak (){
+      console.log('我说话了')
+    }
+    a = 1 //在实例自身上追加一个属性，名为a，值为1
+  }
+
+  class Student extends Person{
+		constructor(name,age,sex){
+			super(name,age,sex)
+		}
+	}
+
+  let p1 = new Person('lisi',19,'女')
+	console.log(p1)
+	p1.speak()
+
+
+	</script>
+	
+</body>
+</html>

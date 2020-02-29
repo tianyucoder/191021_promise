@@ -81,6 +81,7 @@
               value => resolve(value), //result成功了
               reason =>reject(reason) // result失败了
             )
+            result.then(resolve,reject)
           }
         }catch(err){
           reject(err) //若onResolved抛了异常，则then返回的那个Promise实例状态为失败，reason为异常
@@ -113,7 +114,88 @@
   Promise.prototype.catch = function (onRejected) {
     return this.then(undefined,onRejected)
   }
-  
+
+  //Promise的resolve方法
+  Promise.resolve = function (value) {
+    return new Promise((resolve,reject)=>{
+      if(value instanceof Promise){
+        //如果value是Promise值,需要进一步判断
+        value.then(
+          val => resolve(val),
+          reason => reject(reason)
+        )
+      }else{
+        //如果value不是是Promise值,直接成功
+        resolve(value)
+      }
+    })
+  }
+
+  //Promise的reject方法
+  Promise.reject = function (reason) {
+    return new Promise((resolve,reject)=>{
+      reject(reason)
+    })
+  }
+
+  //Promise的all方法
+  Promise.all = function (promiseArr) {
+    let resolvedCount = 0 //记录成功的个数
+    let resultArr = [] //定义好一个数组，用于保存每一个实例成功的结果，最后返回作为整体成功的结果。
+    return new Promise((resolve,reject)=>{
+      promiseArr.forEach((prom,index)=>{
+        Promise.resolve(prom).then(
+          (value)=>{
+            resultArr[index] = value
+            resolvedCount++
+            if(promiseArr.length === resolvedCount){
+              resolve(resultArr)
+            }
+          },
+          (reason)=>{reject(reason)}
+        )
+      })
+    })
+  }
+
+  //Promise的race方法
+  Promise.race = function (promiseArr) {
+    return new Promise((resolve,reject)=>{
+      promiseArr.forEach((prom)=>{
+        Promise.resolve(prom).then(
+          (value)=>{resolve(value)},
+          (reason)=>{reject(reason)}
+        )
+      })
+    })
+  }
+
+  //延迟指定时间返回一个Promise实例，该实例的状态、值与Promise.resolve规则一样
+  Promise.resolveDelay = function (value,time) {
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        if(value instanceof Promise){
+          //如果value是Promise值,需要进一步判断
+          value.then(
+            val => resolve(val),
+            reason => reject(reason)
+          )
+        }else{
+          //如果value不是是Promise值,直接成功
+          resolve(value)
+        }
+      },time)
+    })
+  }
+
+  //延迟指定时间返回一个失败的Promise实例
+  Promise.rejectDelay = function (reason,time) {
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        reject(reason)
+      },time)
+    })
+  }
 
   //替换掉原生的Promise
   window.Promise = Promise
