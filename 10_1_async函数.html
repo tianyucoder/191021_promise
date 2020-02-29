@@ -34,69 +34,13 @@
 
   //async函数------都是被动用的，即：有时候不加async会报错
   /*async function demo(a) {
-    return a
+    //return a
   }
 
   let result = demo(100)
   result.then(
     (value)=>{console.log(value)}
   )*/
-
-  function getData1() {
-    return new Promise((resolve,reject)=>{
-      $.get('https://api.apiopen.top/getTangPoetry?page=1&count=20',(data)=>{
-        setTimeout(()=>{
-          resolve(data)
-        },2000)
-      })
-    })
-  }
-
-  function getData2() {
-    return new Promise((resolve,reject)=>{
-      $.get('https://api.apiopen.top/getJoke?page=1&count=2&type=video',(data)=>{
-        reject('asdss')
-      })
-    })
-  }
-
-  //demo方法有自己的逻辑，但是demo里面会用到getData1的数据、getData2的数据
-  async function demo() {
-    let result1
-    let result2
-    try{
-      result1 = await getData1()
-      result2 = await getData2()
-    }catch(err){
-      console.log(err)
-    }
-    console.log(result1,result2)
-  }
-  demo()
-
-
-
-  /*let p0 = new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-      resolve('atguigu')
-    },1000)
-  })
-
-  /!*p0.then(
-    (value)=>{console.log('成功',value)},
-    (reason)=>{console.log('失败',reason)},
-  )*!/
-
-  ;(async function () {
-    let result
-    try{
-      result = await 1
-    }catch(err){
-      console.log(err)
-    }
-    console.log(result)
-  })()*/
-
 
 </script>
 </body>

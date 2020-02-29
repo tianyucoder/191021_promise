@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10_async与await</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    /*
+    * 若我们使用async配合await这种写法：
+    *     1.表面上不出现任何的回调函数
+    *     2.但实际上底层把我们写的代码进行了加工，把回调函数“还原”回来了。
+    *     3.最终运行的代码是依然有回调的，只是程序员没有看见。
+    * */
+
+    let p0 = new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('atguigu')
+      },4000)
+    })
+
+    //经过引擎加工的代码，如下：
+    async function sendRequest() {
+      let result
+      p0.then(
+        (value)=>{
+          result = value
+          console.log(1)
+          console.log(2)
+          console.log('发请求了',result)
+        }
+      )
+    }
+    sendRequest()
+    console.log(0)
+
+    //程序员写了如下代码（不是引擎真正执行的代码），会被翻译成上面的写法
+    async function sendRequest() {
+      let result = await p0
+      console.log(1)
+      console.log(2)
+      console.log('发请求了',result)
+    }
+    sendRequest()
+    console.log(0)
+
+
+</script>
+</body>
+</html>

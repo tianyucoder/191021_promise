@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+  function demo() {
+    setTimeout(()=>{
+      console.log(1)
+    },9000)
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('atguigu')
+      },20000000)
+    }).then(
+      ()=>{
+        return new Promise((resolve,reject)=>{
+          setTimeout(()=>{
+            console.log(1)
+          },9000)
+        })
+      },
+      ()=>{}
+    ).then(
+      ()=>{},
+      ()=>{}
+    )
+  }
+  demo()
+  console.log(1)
+
+</script>
+
+</body>
+</html>
