@@ -19,13 +19,13 @@
           setTimeout(() => {
             console.log(5)
             resolve(6)
-          }, 0)
-          resolve(1) //p---->成功，value是1
+          },0)
+          resolve(1)
         })
-        resolve(2) //first--->成功，value是2
-        p.then((arg) => {
-          console.log(arg)
-        })
+        resolve(2)
+        p.then(
+          (arg)=>{console.log(arg)}
+        )
       }))
     
       first().then((arg) => {
